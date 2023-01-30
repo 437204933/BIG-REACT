@@ -1,3 +1,4 @@
+import { Container } from 'hostConfig';
 import { NoFlags } from './fiberFlags';
 import { HostComponent, HostRoot, HostText } from './workTags';
 import { FiberNode } from './fiber';
@@ -47,17 +48,17 @@ export const completeWork = (wip: FiberNode) => {
 			if (__DEV__) {
 				console.warn('未处理的completeWork情况', wip);
 			}
-			break;
+			return null;
 	}
 };
 
-function appendAllChildren(parent: FiberNode, wip: FiberNode) {
+function appendAllChildren(parent: Container, wip: FiberNode) {
 	let node = wip.child;
 
 	while (node !== null) {
 		if (node.tag === HostComponent || node.tag === HostText) {
 			appendInitialChild(parent, node?.stateNode);
-		} else if (node.child) {
+		} else if (node.child !== null) {
 			node.child.return = node;
 			node = node.child;
 			continue;

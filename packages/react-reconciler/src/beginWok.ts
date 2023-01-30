@@ -24,7 +24,7 @@ export const beginWork = (wip: FiberNode) => {
 };
 
 function updateHostRoot(wip: FiberNode) {
-	const baseState = wip.memoizedProps;
+	const baseState = wip.memoizedState;
 	const updateQueue = wip.updateQueue as UpdateQueue<Element>;
 	const pending = updateQueue.shared.pending;
 	updateQueue.shared.pending = null;

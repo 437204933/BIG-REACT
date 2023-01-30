@@ -66,7 +66,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 			);
 		}
 		if (__DEV__) {
-			console.warn('未实现的reconcile类型', newChild);
+			console.warn('未实现的reconciler类型', newChild);
 		}
 		return null;
 	};
