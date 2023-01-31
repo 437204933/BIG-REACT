@@ -1,10 +1,4 @@
-import {
-	ChildDeletion,
-	MutationMask,
-	NoFlags,
-	Placement,
-	Update
-} from './fiberFlags';
+import { MutationMask, NoFlags, Placement } from './fiberFlags';
 import { FiberNode, FiberRootNode } from './fiber';
 import { HostComponent, HostRoot, HostText } from './workTags';
 import { appendChildToContainer, Container } from 'hostConfig';

@@ -59,21 +59,21 @@ function commitRoot(root: FiberRootNode) {
 	}
 
 	if (__DEV__) {
-		console.warn('commit阶段开始', root);
+		console.warn('commit阶段开始', finishedWork);
 	}
 
 	// 重置
 	root.finishedWork = null;
 
-	// 判断是否存在3个子阶段需要执行
-	// root 本身flags subtreeFlags
-	const subtreeHasEffects =
+	// 判断是否存在3个子阶段需要执行的操作
+	// root flags root subtreeFlags
+	const subtreeHasEffect =
 		(finishedWork.subtreeFlags & MutationMask) !== NoFlags;
-	const rootHasEffects = (finishedWork.flags & MutationMask) !== NoFlags;
+	const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
 
-	if (subtreeHasEffects || rootHasEffects) {
+	if (subtreeHasEffect || rootHasEffect) {
 		// beforeMutation
-		// mutation
+		// mutation Placement
 		commitMutationEffects(finishedWork);
 		root.current = finishedWork;
 		// layout

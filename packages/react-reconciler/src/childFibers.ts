@@ -1,5 +1,5 @@
 import { REACT_ELEMENT_TYPE } from 'shared/ReactSymbols';
-import { ReactElementType } from './../../shared/ReactTypes';
+import { ReactElement } from './../../shared/ReactTypes';
 import { createFiberFromElement, FiberNode } from './fiber';
 import { Placement } from './fiberFlags';
 import { HostText } from './workTags';
@@ -8,7 +8,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 	function reconcileSingleElement(
 		returnFiber: FiberNode,
 		currentFiber: FiberNode | null,
-		element: ReactElementType
+		element: ReactElement
 	) {
 		// 根据ReactElement创建Fiber
 		const fiber = createFiberFromElement(element);
@@ -27,7 +27,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 	}
 	function placeSingleChild(fiber: FiberNode) {
 		if (shouldTrackEffects && fiber.alternate === null) {
-			// mount
+			// mount 只执行root Placement !!!!!!!!!!!!!!!!
 			fiber.flags |= Placement;
 		}
 		return fiber;
@@ -36,7 +36,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 	return function reconcileChildFibers(
 		returnFiber: FiberNode,
 		currentFiber: FiberNode | null,
-		newChild?: ReactElementType
+		newChild?: ReactElement
 	) {
 		// 判断当前fiber类型
 		if (typeof newChild === 'object' && newChild !== null) {
@@ -51,7 +51,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 					);
 				default:
 					if (__DEV__) {
-						console.warn('未实现的reconcile类型', newChild);
+						console.warn('未实现的reconciler类型', newChild);
 					}
 					break;
 			}

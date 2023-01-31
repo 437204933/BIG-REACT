@@ -4,18 +4,18 @@ import {
 	Key,
 	Props,
 	Ref,
-	ReactElementType,
+	ReactElement,
 	ElementType
 } from 'shared/ReactTypes';
 
 // React Element
 
-const ReactElement = function (
+const ReactElementType = function (
 	type: Type,
 	key: Key,
 	ref: Ref,
 	props: Props
-): ReactElementType {
+): ReactElement {
 	const element = {
 		$$typeof: REACT_ELEMENT_TYPE,
 		type,
@@ -65,14 +65,14 @@ export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
 			}
 		}
 
-		return ReactElement(type, key, ref, props);
+		return ReactElementType(type, key, ref, props);
 	}
 };
 
-// 暂时一致
+// jsxDEV传入的后续几个参数与jsx不同
 export const jsxDEV = (type: ElementType, config: any) => {
 	let key: Key = null;
-	const props: Props = {};
+	const props: any = {};
 	let ref: Ref = null;
 
 	for (const prop in config) {
@@ -85,16 +85,14 @@ export const jsxDEV = (type: ElementType, config: any) => {
 			continue;
 		}
 		// ref 赋值
-		if (prop === 'ref') {
-			if (val !== undefined) {
-				ref = val;
-			}
+		if (prop === 'ref' && val !== undefined) {
+			ref = val;
 			continue;
 		}
-		// 自身的prop赋值
+		// props赋值
 		if ({}.hasOwnProperty.call(config, prop)) {
 			props[prop] = val;
 		}
-		return ReactElement(type, key, ref, props);
 	}
+	return ReactElementType(type, key, ref, props);
 };

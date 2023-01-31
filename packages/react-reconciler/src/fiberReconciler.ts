@@ -8,7 +8,7 @@ import { FiberRootNode } from './fiber';
 import { Container } from 'hostConfig';
 import { FiberNode } from './fiber';
 import { HostRoot } from './workTags';
-import { ReactElementType } from 'shared/ReactTypes';
+import { ReactElement } from 'shared/ReactTypes';
 import { scheduleUpdateOnFiber } from './workLoop';
 
 export function createContainer(container: Container) {
@@ -19,13 +19,13 @@ export function createContainer(container: Container) {
 }
 
 export function updateContainer(
-	element: ReactElementType | null,
+	element: ReactElement | null,
 	root: FiberRootNode
 ) {
 	const hostRootFiber = root.current;
 	const update = createUpdate(element);
 	enqueueUpdate(
-		hostRootFiber.updateQueue as UpdateQueue<ReactElementType | null>,
+		hostRootFiber.updateQueue as UpdateQueue<ReactElement | null>,
 		update
 	);
 	scheduleUpdateOnFiber(hostRootFiber);
