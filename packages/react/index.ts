@@ -4,7 +4,7 @@ import currentDispatcher, {
 } from './src/currentDispatcher';
 // React
 
-import { jsxDEV } from './src/jsx';
+import { jsx, isValidElement as isValidElementFn, jsxDEV } from './src/jsx';
 
 export const useState: Dispatcher['useState'] = (initialState) => {
 	const dispatcher = resolveDispatcher();
@@ -16,7 +16,7 @@ export const BE_FIRED_OBJECT = {
 	currentDispatcher
 };
 
-export default {
-	version: '0.0.0',
-	createElement: jsxDEV
-};
+export const version = '0.0.0';
+// TODO: (lvyongjian)：区分JSX和JsxDEV
+export const createElement = jsx;
+export const isValidElement = isValidElementFn;

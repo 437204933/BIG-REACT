@@ -52,21 +52,20 @@ export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
 		if ({}.hasOwnProperty.call(config, prop)) {
 			props[prop] = val;
 		}
-
-		// 判断children长度
-		const maybeChildrenLength = maybeChildren.length;
-
-		if (maybeChildrenLength) {
-			// [children] 一个或者多个
-			if (maybeChildrenLength === 1) {
-				props.children = maybeChildren[0];
-			} else {
-				props.children = maybeChildren;
-			}
-		}
-
-		return ReactElementType(type, key, ref, props);
 	}
+	// 判断children长度
+	const maybeChildrenLength = maybeChildren.length;
+
+	if (maybeChildrenLength) {
+		// [children] 一个或者多个
+		if (maybeChildrenLength === 1) {
+			props.children = maybeChildren[0];
+		} else {
+			props.children = maybeChildren;
+		}
+	}
+
+	return ReactElementType(type, key, ref, props);
 };
 
 // jsxDEV传入的后续几个参数与jsx不同
@@ -96,3 +95,12 @@ export const jsxDEV = (type: ElementType, config: any) => {
 	}
 	return ReactElementType(type, key, ref, props);
 };
+
+export function isValidElement(object: any) {
+	const type = typeof object;
+	return (
+		type === 'object' &&
+		object !== null &&
+		object.$$typeof === REACT_ELEMENT_TYPE
+	);
+}
