@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
+import { ReactElement } from 'react';
 import ReactDOM from 'react-dom/client';
-import { ReactElement } from 'shared/ReactTypes';
 
 console.log(import.meta);
-(import.meta as any).hot.on('vite:beforeUpdate', () => {
-	const root = document.getElementById('root');
-	if (root) {
-		root.innerHTML = '';
-	}
-});
-
+(import.meta as any).hot.accept((mode) => mode.render());
 function App() {
-	const [num, setNum] = useState(1);
-	return <div>{num}</div>;
+	const [num, setNum] = useState(100);
+	window.setNum = setNum;
+	return num === 3 ? <Child onClick={() => setNum(111)} /> : <div>{num}</div>;
 }
 
 function Child() {
